@@ -1,6 +1,6 @@
 ; Archibald Latham
-; LAB12
-; 11/19/2019
+; FINAL
+; 12/4/2019
 
 .cseg
 
@@ -29,19 +29,92 @@ rcall GFX_clear_array
 rcall GFX_refresh_screen
 
 ldi XPOS, 0
-ldi YPOS, 4
+ldi YPOS, 0
 ldi ONE, 1
 ldi circ, 15
 
+ldi r18, 1
+ldi r19, 3
+rcall GFX_set_array_pos
+ldi r20, 0xDA
+st X+, r20
+ldi r20, 0xC2
+st X+, r20
+ldi r20, 0xBF
+st X+, r20
+ldi r20, 0xDA
+st X+, r20
+ldi r20, 0xC4
+st X+, r20
+ldi r20, 0xBF
+st X+, r20
+ldi r20, 0xC4
+st X+, r20
+ldi r20, 0xC2
+st X+, r20
+ldi r20, 0xBF
+st X+, r20
+ldi r20, 0xC4
+st X+, r20
+ldi r20, 0xC2
+st X+, r20
+ldi r20, 0xBF
+st X+, r20
+ldi r20, 0xB3
+st X+, r20
+ldi r20, 0xDA
+st X+, r20
+ldi r20, 0xBF
+st X, r20
+
+ldi r18, 1
+ldi r19, 4
+rcall GFX_set_array_pos
+ldi r20, 0xB3
+st X+, r20
+ldi r20, 0xB3
+st X+, r20
+ldi r20, 0xB3
+st X+, r20
+ldi r20, 0xB3
+st X+, r20
+ldi r20, 0x00
+st X+, r20
+ldi r20, 0xB3
+st X+, r20
+ldi r20, 0xC4
+st X+, r20
+ldi r20, 0xC1
+st X+, r20
+ldi r20, 0xD9
+st X+, r20
+ldi r20, 0x00
+st X+, r20
+ldi r20, 0xC0
+st X+, r20
+ldi r20, 0xD9
+st X+, r20
+ldi r20, 0xC0
+st X+, r20
+ldi r20, 0xD9
+st X+, r20
+ldi r20, 0xB3
+st X, r20
+
+rcall GFX_refresh_screen
+rcall delay_1s
+rcall GFX_clear_array
+rcall GFX_refresh_screen
+
 loop:
+rcall waterfall
+
 mov r18, XPOS
 mov r19, YPOS
 rcall GFX_set_array_pos
 ldi r20, 0x10
 st X, r20
 rcall GFX_refresh_screen
-
-rcall waterfall
 
 lds r21, PORTC_IN
 andi r21, 0b00000011
@@ -53,13 +126,21 @@ breq move_left
 rjmp loop
 
 move_right:
+mov r18, XPOS
+mov r19, YPOS
+rcall GFX_set_array_pos
+ldi r20, 0x00
+st X, r20
 add YPOS, ONE
-rcall GFX_clear_array
 rjmp loop
 
 move_left:
+mov r18, XPOS
+mov r19, YPOS
+rcall GFX_set_array_pos
+ldi r20, 0x00
+st X, r20
 sub YPOS, ONE
-rcall GFX_clear_array
 rjmp loop
 
 waterfall:
@@ -70,7 +151,7 @@ ldi r20, 0x00
 st X, r20
 
 mov r18, circ
-ldi r19, 4
+ldi r19, 3
 rcall GFX_set_array_pos
 ldi r20, 0x00
 st X, r20
@@ -88,11 +169,11 @@ sub circ, ONE
 mov r18, circ
 ldi r19, 0
 rcall GFX_set_array_pos
-ldi r20, 0xEA
+ldi r20, 0x09
 st X, r20
 
 mov r18, circ
-ldi r19, 4
+ldi r19, 3
 rcall GFX_set_array_pos
 ldi r20, 0x09
 st X, r20
@@ -100,7 +181,7 @@ st X, r20
 mov r18, circ
 ldi r19, 7
 rcall GFX_set_array_pos
-ldi r20, 0xEC
+ldi r20, 0x09
 st X, r20
 
 rcall GFX_refresh_screen
